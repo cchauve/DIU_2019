@@ -5,7 +5,8 @@ from __future__ import print_function
 
 def merge_sort(collection):
     """Pure implementation of the merge sort algorithm in Python recording also 
-    the number of steps of the algorithm, where steps are comparisons done during the merge phase
+    the number of steps of the algorithm, where steps are numbers of comparisons done
+    during the fusion phase, including comparisons to check if one of the two lists is not empty
 
     :param collection: some mutable ordered collection with heterogeneous
     comparable items inside
@@ -26,13 +27,14 @@ def merge_sort(collection):
         '''merge left and right
         :param left: left collection
         :param right: right collection
-        :return: merge result and number of steps of the merge, i.e. size of the merged collections
+        :return: merge result and number of steps of the merge
         '''
         nb_steps = 0
         result   = []
         while left and right:
             result.append(left.pop(0) if left[0] <= right[0] else right.pop(0))
             nb_steps += 1
+        nb_steps += len(left)+len(right) # To account for the size of the left list
         return((result + left + right,nb_steps))
     
     if len(collection) <= 1:
