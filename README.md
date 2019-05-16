@@ -1,4 +1,4 @@
-# Activites pour l'enseignement de l'informatique au college et lycee
+# Activites pour l'enseignement de l'informatique au collège et lycée
 
 Cedric Chauve, cedric.chauve@u-bordeaux.fr
 
@@ -10,4 +10,6 @@ On peut aussi utiliser un calepin Jupyter en utilisant un serveur distant. Par e
 
 ## Calepins
 
-15052019 : exemple de calepin Jupyter sur le modele epidemiologique SIR
+15052019_SIR : exemple de calepin Jupyter sur le modèle épidémiologique SIR
+
+16052019_Complexite_Tri : comparaison de la complexité d'algorithmes de tri
