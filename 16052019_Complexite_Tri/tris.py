@@ -6,7 +6,7 @@
 def estIndice(T,i):
     return(0<=i and i<len(T))
 
-def echange (T,i,j):
+def echange(T,i,j):
     assert(estIndice(T,i) and estIndice(T,j))
     aux  = T[i]
     T[i] = T[j]
@@ -64,7 +64,7 @@ def triInsertion(T):
         j = i-1;
         while j>=0 and T[i]<T[j]:
             nb_etapes += 1
-            j = j-1
+            j -= 1
         nb_etapes += 1
         nb_etapes += decalageDroite(T,j+1,i)
     return(nb_etapes)
@@ -80,21 +80,21 @@ def fusionner(T,g,m,d):
         nb_etapes += 1
         if T [i]<=T[j]:
             R[k] = T[i]
-            i = i+1
+            i += 1
         else:
             R[k] = T[j]
-            j = j+1
-        k = k+1
+            j += 1
+        k += 1
     while i<=m:
         nb_etapes += 1
         R[k] = T[i]
-        i = i+1
-        k = k+1
+        i += 1
+        k += 1
     while j<=d:
         nb_etapes += 1
         R[k] = T[j]
-        j = j+1
-        k = k+1
+        j += 1
+        k += 1
     for k in range(len(R)):
         nb_etapes += 1
         T[g+k] = R[k]
@@ -111,3 +111,50 @@ def triFusionRec(T,g,d):
 
 def triFusion(T):
     return(triFusionRec(T,0,len(T)-1))
+
+# Tri par tas (tire de http://dept-info.labri.fr/ENSEIGNEMENT/algoprog/examens-DS/DST-2014-corrige.pdf)
+# Etapes élémentaires = echanges
+def gauche(i):
+    return(2*i+1)
+def droite(i):
+    return(2*(i+1))
+def pere(i):
+    return((i-1)//2)
+
+def maximum(T,i,limite):
+    assert(0<=i and i<limite and limite<=len(T))
+    iMax = i
+    g = gauche(i)
+    d = droite(i)
+    # maximum entre T[i], T[g] et T[d] avec getd<limite
+    if g<limite and T[g]>T[iMax]:
+        iMax = g
+    if d<limite and T[ d]>T[iMax]:
+        iMax = d
+    return(iMax)
+
+def entasser(T,i,limite):
+    iMax = maximum(T,i,limite)
+    nb_etapes = 0
+    while iMax!=i:
+        echange(T,i,iMax)
+        nb_etapes += 1
+        i    = iMax
+        iMax = maximum(T,i,limite)
+    return(nb_etapes)
+
+def construireTas(T):
+    nb_etapes = 0
+    for i in range((len(T)-1)//2,-1,-1):
+        nb_etapes += entasser(T,i,len(T))   
+
+def trierTas(T):
+    nb_etapes = 0
+    for i in range(len(T)-1,0,-1):
+        echange(T,0,i)
+        nb_etapes += 1+entasser(T,0,i)
+    return(nb_etapes)
+
+def triParTas(T):
+   construireTas(T)
+   return(trierTas(T))
