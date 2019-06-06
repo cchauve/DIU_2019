@@ -78,7 +78,7 @@ def fusionner(T,g,m,d):
     nb_etapes = 0
     while i<=m and j<=d:
         nb_etapes += 1
-        if T [i]<=T[j]:
+        if T[i]<=T[j]:
             R[k] = T[i]
             i += 1
         else:
